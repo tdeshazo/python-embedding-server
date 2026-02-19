@@ -1,0 +1,37 @@
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    MODEL_NAME=sentence-transformers/all-MiniLM-L6-v2 \
+    VCPU_COUNT=2 \
+    TORCH_NUM_THREADS=2 \
+    TORCH_NUM_INTEROP_THREADS=1 \
+    OMP_NUM_THREADS=2 \
+    MKL_NUM_THREADS=2 \
+    TOKENIZERS_PARALLELISM=false \
+    MAX_INFERENCE_CONCURRENCY=1 \
+    GRPC_MAX_WORKERS=1 \
+    GRPC_BIND_ADDR=0.0.0.0:50051
+
+WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libgomp1 tini \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements-rpc.txt /app/requirements-rpc.txt
+RUN pip install --upgrade pip \
+    && pip install -r /app/requirements-rpc.txt
+
+COPY python-embeddings-grpc /app/python-embeddings-grpc
+
+RUN useradd -m -u 10001 appuser
+USER appuser
+
+EXPOSE 50051
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 CMD python -c "import os, sys, grpc; sys.path.insert(0, '/app/python-embeddings-grpc'); import embeddings_pb2, embeddings_pb2_grpc; target=os.getenv('HEALTHCHECK_GRPC_TARGET', '127.0.0.1:50051'); channel=grpc.insecure_channel(target); stub=embeddings_pb2_grpc.EmbeddingServiceStub(channel); stub.Health(embeddings_pb2.HealthRequest(), timeout=2)"
+
+ENTRYPOINT ["/usr/bin/tini", "--"]
+CMD ["python", "/app/python-embeddings-grpc/__main__.py"]

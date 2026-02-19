@@ -12,11 +12,36 @@ Factory mode is also supported:
 uvicorn main:create_app --factory --app-dir python-embeddings-service --host 0.0.0.0 --port 8000
 ```
 
+## Run gRPC Service
+
+```bash
+python python-embeddings-grpc/__main__.py
+```
+
+Default bind is `0.0.0.0:50051`. Override with:
+
+```bash
+GRPC_BIND_ADDR=0.0.0.0:50052 python python-embeddings-grpc/__main__.py
+```
+
+Proto contract:
+
+```text
+python-embeddings-grpc/embeddings.proto
+```
+
 ## Run with Docker
 
 ```bash
 docker build -t python-embedding-server .
 docker run --rm -p 8000:8000 python-embedding-server
+```
+
+## Run gRPC with Docker
+
+```bash
+docker build -f Dockerfile.grpc -t python-embedding-grpc-server .
+docker run --rm -p 50051:50051 python-embedding-grpc-server
 ```
 
 ## Go Request Struct Example

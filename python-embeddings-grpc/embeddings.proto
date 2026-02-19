@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package embeddings.v1;
+
+service EmbeddingService {
+  rpc Health(HealthRequest) returns (HealthResponse);
+  rpc Embed(EmbedRequest) returns (EmbedResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  bool ok = 1;
+  bool model_loaded = 2;
+  string model = 3;
+  int32 max_inference_concurrency = 4;
+}
+
+message EmbedRequest {
+  repeated string texts = 1;
+  optional bool normalize = 2;
+  optional int32 batch_size = 3;
+  optional int32 max_length = 4;
+}
+
+message Embedding {
+  repeated float values = 1;
+}
+
+message EmbedResponse {
+  string model = 1;
+  int32 dim = 2;
+  repeated Embedding embeddings = 3;
+}
