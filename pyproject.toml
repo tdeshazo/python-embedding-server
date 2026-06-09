@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-encoder-server"
+version = "0.1.0"
+description = "FastAPI and gRPC embedding server backed by sentence-transformers."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "sentence-transformers>=3.0,<4.0",
+    "torch>=2.2,<3.0",
+]
+
+[project.optional-dependencies]
+json = [
+    "fastapi>=0.110,<1.0",
+    "uvicorn[standard]>=0.30,<1.0",
+    "orjson>=3.10,<4.0",
+]
+grpc = [
+    "grpcio>=1.66,<2.0",
+    "grpcio-tools>=1.66,<2.0",
+    "protobuf>=4.25,<7.0",
+]
+rpc = [
+    "grpcio>=1.66,<2.0",
+    "grpcio-tools>=1.66,<2.0",
+    "protobuf>=4.25,<7.0",
+]
+all = [
+    "fastapi>=0.110,<1.0",
+    "uvicorn[standard]>=0.30,<1.0",
+    "orjson>=3.10,<4.0",
+    "grpcio>=1.66,<2.0",
+    "grpcio-tools>=1.66,<2.0",
+    "protobuf>=4.25,<7.0",
+]
+
+[project.scripts]
+python-embeddings-grpc = "python_encoder_server.grpc.__main__:serve"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+python_encoder_server = ["grpc/embeddings.proto"]

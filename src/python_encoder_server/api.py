@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 from sentence_transformers import SentenceTransformer
 
-from models import EmbedRequest, EmbedResponse
+from .models import EmbedRequest, EmbedResponse
 
 
 def create_app(

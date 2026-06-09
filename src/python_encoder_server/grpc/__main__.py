@@ -11,8 +11,7 @@ import grpc
 import torch
 from sentence_transformers import SentenceTransformer
 
-import embeddings_pb2
-import embeddings_pb2_grpc
+from . import embeddings_pb2, embeddings_pb2_grpc
 
 MODEL_NAME = os.getenv("MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
 DEFAULT_VCPU_COUNT = 2

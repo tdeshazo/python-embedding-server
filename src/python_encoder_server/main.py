@@ -8,7 +8,7 @@ import torch
 from fastapi import FastAPI
 from sentence_transformers import SentenceTransformer
 
-from api import create_app as create_api_app
+from .api import create_app as create_api_app
 
 MODEL_NAME = os.getenv("MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
 DEFAULT_VCPU_COUNT = 2

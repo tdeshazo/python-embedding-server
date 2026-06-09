@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import embeddings_pb2 as embeddings__pb2
+from . import embeddings_pb2 as embeddings__pb2
 
 
 class EmbeddingServiceStub(object):

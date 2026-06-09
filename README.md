@@ -1,33 +1,40 @@
 # Python Embedding Server
 
+## Install
+
+```bash
+pip install -e ".[json]"
+pip install -e ".[grpc]"
+```
+
 ## Run with uvicorn
 
 ```bash
-uvicorn main:app --app-dir python-embeddings-service --host 0.0.0.0 --port 8000
+uvicorn python_encoder_server.main:app --host 0.0.0.0 --port 8000
 ```
 
 Factory mode is also supported:
 
 ```bash
-uvicorn main:create_app --factory --app-dir python-embeddings-service --host 0.0.0.0 --port 8000
+uvicorn python_encoder_server.main:create_app --factory --host 0.0.0.0 --port 8000
 ```
 
 ## Run gRPC Service
 
 ```bash
-python python-embeddings-grpc/__main__.py
+python-embeddings-grpc
 ```
 
 Default bind is `0.0.0.0:50051`. Override with:
 
 ```bash
-GRPC_BIND_ADDR=0.0.0.0:50052 python python-embeddings-grpc/__main__.py
+GRPC_BIND_ADDR=0.0.0.0:50052 python-embeddings-grpc
 ```
 
 Proto contract:
 
 ```text
-python-embeddings-grpc/embeddings.proto
+src/python_encoder_server/grpc/embeddings.proto
 ```
 
 ## Run with Docker
