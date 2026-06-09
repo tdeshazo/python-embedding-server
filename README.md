@@ -51,6 +51,12 @@ docker build -f Dockerfile.grpc -t python-embedding-grpc-server .
 docker run --rm -p 50051:50051 python-embedding-grpc-server
 ```
 
+## Request Concurrency
+
+Requests that set `max_length` run exclusively while temporarily overriding the
+model sequence length. Requests without `max_length` still use the configured
+`MAX_INFERENCE_CONCURRENCY`.
+
 ## Go Request Struct Example
 
 ```go

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-import threading
 from concurrent import futures
 from typing import List
 
@@ -10,6 +9,8 @@ os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 import grpc
 import torch
 from sentence_transformers import SentenceTransformer
+
+from python_encoder_server.encoding import ModelEncoder
 
 from . import embeddings_pb2, embeddings_pb2_grpc
 
@@ -46,10 +47,11 @@ class EmbeddingService(embeddings_pb2_grpc.EmbeddingServiceServicer):
         model_name: str,
         max_inference_concurrency: int = 1,
     ) -> None:
-        self._model = model
         self._model_name = model_name
-        self._effective_concurrency = max(1, max_inference_concurrency)
-        self._inference_slots = threading.Semaphore(self._effective_concurrency)
+        self._encoder = ModelEncoder(
+            model=model,
+            max_inference_concurrency=max_inference_concurrency,
+        )
 
     def Health(
         self,
@@ -62,7 +64,7 @@ class EmbeddingService(embeddings_pb2_grpc.EmbeddingServiceServicer):
             ok=True,
             model_loaded=True,
             model=self._model_name,
-            max_inference_concurrency=self._effective_concurrency,
+            max_inference_concurrency=self._encoder.max_inference_concurrency,
         )
 
     def Embed(
@@ -82,23 +84,12 @@ class EmbeddingService(embeddings_pb2_grpc.EmbeddingServiceServicer):
 
         effective_batch_size = min(batch_size, max(1, len(texts)))
 
-        with self._inference_slots:
-            previous_max_seq_length = None
-            if request.HasField("max_length"):
-                previous_max_seq_length = self._model.max_seq_length
-                self._model.max_seq_length = request.max_length
-
-            try:
-                vecs = self._model.encode(
-                    texts,
-                    batch_size=effective_batch_size,
-                    normalize_embeddings=normalize,
-                    convert_to_numpy=True,
-                    show_progress_bar=False,
-                )
-            finally:
-                if previous_max_seq_length is not None:
-                    self._model.max_seq_length = previous_max_seq_length
+        vecs = self._encoder.encode(
+            texts,
+            batch_size=effective_batch_size,
+            normalize_embeddings=normalize,
+            max_length=request.max_length if request.HasField("max_length") else None,
+        )
 
         vectors: List[List[float]] = vecs.tolist()
         dim = len(vectors[0]) if vectors else 0

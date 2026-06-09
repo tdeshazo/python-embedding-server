@@ -4,6 +4,7 @@
 # source: embeddings.proto
 # Protobuf Python Version: 6.33.1
 """Generated protocol buffer code."""
+
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import descriptor_pool as _descriptor_pool
 from google.protobuf import symbol_database as _symbol_database
@@ -13,25 +14,25 @@ from google.protobuf.internal import builder as _builder
 _sym_db = _symbol_database.Default()
 
 
-
-
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x65mbeddings.proto\x12\rembeddings.v1\"\x0f\n\rHealthRequest\"d\n\x0eHealthResponse\x12\n\n\x02ok\x18\x01 \x01(\x08\x12\x14\n\x0cmodel_loaded\x18\x02 \x01(\x08\x12\r\n\x05model\x18\x03 \x01(\t\x12!\n\x19max_inference_concurrency\x18\x04 \x01(\x05\"\x93\x01\n\x0c\x45mbedRequest\x12\r\n\x05texts\x18\x01 \x03(\t\x12\x16\n\tnormalize\x18\x02 \x01(\x08H\x00\x88\x01\x01\x12\x17\n\nbatch_size\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x17\n\nmax_length\x18\x04 \x01(\x05H\x02\x88\x01\x01\x42\x0c\n\n_normalizeB\r\n\x0b_batch_sizeB\r\n\x0b_max_length\"\x1b\n\tEmbedding\x12\x0e\n\x06values\x18\x01 \x03(\x02\"Y\n\rEmbedResponse\x12\r\n\x05model\x18\x01 \x01(\t\x12\x0b\n\x03\x64im\x18\x02 \x01(\x05\x12,\n\nembeddings\x18\x03 \x03(\x0b\x32\x18.embeddings.v1.Embedding2\x9d\x01\n\x10\x45mbeddingService\x12\x45\n\x06Health\x12\x1c.embeddings.v1.HealthRequest\x1a\x1d.embeddings.v1.HealthResponse\x12\x42\n\x05\x45mbed\x12\x1b.embeddings.v1.EmbedRequest\x1a\x1c.embeddings.v1.EmbedResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(
+    b'\n\x10\x65mbeddings.proto\x12\rembeddings.v1"\x0f\n\rHealthRequest"d\n\x0eHealthResponse\x12\n\n\x02ok\x18\x01 \x01(\x08\x12\x14\n\x0cmodel_loaded\x18\x02 \x01(\x08\x12\r\n\x05model\x18\x03 \x01(\t\x12!\n\x19max_inference_concurrency\x18\x04 \x01(\x05"\x93\x01\n\x0c\x45mbedRequest\x12\r\n\x05texts\x18\x01 \x03(\t\x12\x16\n\tnormalize\x18\x02 \x01(\x08H\x00\x88\x01\x01\x12\x17\n\nbatch_size\x18\x03 \x01(\x05H\x01\x88\x01\x01\x12\x17\n\nmax_length\x18\x04 \x01(\x05H\x02\x88\x01\x01\x42\x0c\n\n_normalizeB\r\n\x0b_batch_sizeB\r\n\x0b_max_length"\x1b\n\tEmbedding\x12\x0e\n\x06values\x18\x01 \x03(\x02"Y\n\rEmbedResponse\x12\r\n\x05model\x18\x01 \x01(\t\x12\x0b\n\x03\x64im\x18\x02 \x01(\x05\x12,\n\nembeddings\x18\x03 \x03(\x0b\x32\x18.embeddings.v1.Embedding2\x9d\x01\n\x10\x45mbeddingService\x12\x45\n\x06Health\x12\x1c.embeddings.v1.HealthRequest\x1a\x1d.embeddings.v1.HealthResponse\x12\x42\n\x05\x45mbed\x12\x1b.embeddings.v1.EmbedRequest\x1a\x1c.embeddings.v1.EmbedResponseb\x06proto3'
+)
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
-_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'embeddings_pb2', _globals)
+_builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, "embeddings_pb2", _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
-  _globals['_HEALTHREQUEST']._serialized_start=35
-  _globals['_HEALTHREQUEST']._serialized_end=50
-  _globals['_HEALTHRESPONSE']._serialized_start=52
-  _globals['_HEALTHRESPONSE']._serialized_end=152
-  _globals['_EMBEDREQUEST']._serialized_start=155
-  _globals['_EMBEDREQUEST']._serialized_end=302
-  _globals['_EMBEDDING']._serialized_start=304
-  _globals['_EMBEDDING']._serialized_end=331
-  _globals['_EMBEDRESPONSE']._serialized_start=333
-  _globals['_EMBEDRESPONSE']._serialized_end=422
-  _globals['_EMBEDDINGSERVICE']._serialized_start=425
-  _globals['_EMBEDDINGSERVICE']._serialized_end=582
+    DESCRIPTOR._loaded_options = None
+    _globals["_HEALTHREQUEST"]._serialized_start = 35
+    _globals["_HEALTHREQUEST"]._serialized_end = 50
+    _globals["_HEALTHRESPONSE"]._serialized_start = 52
+    _globals["_HEALTHRESPONSE"]._serialized_end = 152
+    _globals["_EMBEDREQUEST"]._serialized_start = 155
+    _globals["_EMBEDREQUEST"]._serialized_end = 302
+    _globals["_EMBEDDING"]._serialized_start = 304
+    _globals["_EMBEDDING"]._serialized_end = 331
+    _globals["_EMBEDRESPONSE"]._serialized_start = 333
+    _globals["_EMBEDRESPONSE"]._serialized_end = 422
+    _globals["_EMBEDDINGSERVICE"]._serialized_start = 425
+    _globals["_EMBEDDINGSERVICE"]._serialized_end = 582
 # @@protoc_insertion_point(module_scope)
