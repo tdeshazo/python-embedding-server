@@ -24,6 +24,7 @@ def create_app(
     encoder = ModelEncoder(
         model=model,
         max_inference_concurrency=effective_concurrency,
+        transport="http",
     )
 
     @app.get("/health")
