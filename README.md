@@ -1,5 +1,8 @@
 # Python Embedding Server
 
+> [!WARNING]  
+> This service is intended for trusted internal use only. It does not provide authentication, authorization, rate limiting, or request-size limits.
+
 ## Install
 
 ```bash
@@ -65,9 +68,7 @@ docker build -f Dockerfile.grpc --build-arg MODEL_NAME=sentence-transformers/all
 
 ## Request Concurrency
 
-Requests that set `max_length` run exclusively while temporarily overriding the
-model sequence length. Requests without `max_length` still use the configured
-`MAX_INFERENCE_CONCURRENCY`.
+Requests that set `max_length` run exclusively while temporarily overriding the model sequence length. Requests without `max_length` still use the configured `MAX_INFERENCE_CONCURRENCY`.
 
 ## Go Request Struct Example
 
