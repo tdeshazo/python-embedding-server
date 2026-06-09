@@ -11,6 +11,7 @@ from sentence_transformers import SentenceTransformer
 from .api import create_app as create_api_app
 
 MODEL_NAME = os.getenv("MODEL_NAME", "sentence-transformers/all-MiniLM-L6-v2")
+MODEL_CACHE_DIR = os.getenv("MODEL_CACHE_DIR")
 DEFAULT_VCPU_COUNT = 2
 
 
@@ -33,7 +34,7 @@ def configure_torch_threads() -> None:
 
 
 def load_model(model_name: str = MODEL_NAME) -> SentenceTransformer:
-    return SentenceTransformer(model_name, device="cpu")
+    return SentenceTransformer(model_name, cache_folder=MODEL_CACHE_DIR, device="cpu")
 
 
 def create_app() -> FastAPI:

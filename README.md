@@ -44,11 +44,23 @@ docker build -t python-embedding-server .
 docker run --rm -p 8000:8000 python-embedding-server
 ```
 
+Build with a specific pre-downloaded model:
+
+```bash
+docker build --build-arg MODEL_NAME=sentence-transformers/all-mpnet-base-v2 -t python-embedding-server .
+```
+
 ## Run gRPC with Docker
 
 ```bash
 docker build -f Dockerfile.grpc -t python-embedding-grpc-server .
 docker run --rm -p 50051:50051 python-embedding-grpc-server
+```
+
+Build the gRPC image with a specific pre-downloaded model:
+
+```bash
+docker build -f Dockerfile.grpc --build-arg MODEL_NAME=sentence-transformers/all-mpnet-base-v2 -t python-embedding-grpc-server .
 ```
 
 ## Request Concurrency
